@@ -1,0 +1,9 @@
+build/
+node_modules/
+openshift/
+.env
+
+#Docker files
+Dockerfile
+DockerfileNginx
+.dockerignore
