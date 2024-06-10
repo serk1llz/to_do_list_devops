@@ -1,6 +1,5 @@
 backend_java/
 venv/
-backend/migrations
 # dependencies
 **/node_modules
 **/.pnp
