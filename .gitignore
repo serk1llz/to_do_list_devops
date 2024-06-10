@@ -1,5 +1,7 @@
 backend_java/
+__pycache__
 venv/
+backend/migrations/versions/*
 # dependencies
 **/node_modules
 **/.pnp

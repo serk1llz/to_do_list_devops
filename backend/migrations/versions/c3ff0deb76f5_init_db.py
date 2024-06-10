@@ -58,5 +58,6 @@ def downgrade() -> None:
     op.drop_table('task_user', schema='to_do_list')
     op.drop_table('user', schema='to_do_list')
     op.drop_table('task', schema='to_do_list')
-    op.execute(f"DROP SCHEMA IF NOT EXISTS {settings.DB_SCHEMA};")
+    op.execute(f"DROP SCHEMA IF EXISTS {settings.DB_SCHEMA};")
+
     # ### end Alembic commands ###

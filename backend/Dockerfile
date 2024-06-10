@@ -17,7 +17,7 @@ RUN python3 -m venv venv && \
 ENV VIRTUAL_ENV=/app/venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-COPY requirements.txt .
+RUN alembic revision --autogenerate -m "init_db"
 
 RUN /bin/bash -c ". /app/venv/bin/activate"
 
