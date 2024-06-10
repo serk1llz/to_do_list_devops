@@ -53,6 +53,7 @@ def run_migrations_offline() -> None:
     with context.begin_transaction():
         context.run_migrations()
 
+version_table_schema = settings.DB_SCHEMA
 
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
@@ -69,7 +70,9 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection,
+            target_metadata=target_metadata,
+            version_table_schema=version_table_schema
         )
 
         with context.begin_transaction():
