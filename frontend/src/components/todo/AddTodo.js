@@ -20,7 +20,7 @@ function AddTodo({isAuthenticated, setIsAuthenticated}) {
 
     try {
       const backend_url = process.env.REACT_APP_BACKEND_URL;
-      await axios.post(`http://${backend_url}/task_manager/task/add`, {title, target_date}, {
+      await axios.post(`${backend_url}/task_manager/task/add`, {title, target_date}, {
         withCredentials: true
       })
     } catch(error){

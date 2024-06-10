@@ -18,7 +18,7 @@ function Signup({isAuthenticated, setIsAuthenticated}) {
 
     try {
       const backend_url = process.env.REACT_APP_BACKEND_URL;
-      const response = await axios.post(`http://${backend_url}/user_manager/auth/register`, {password, email});
+      const response = await axios.post(`${backend_url}/user_manager/auth/register`, {password, email});
     } catch(error){
       setMessage('');
       if (error.response) {

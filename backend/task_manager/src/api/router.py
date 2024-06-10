@@ -20,7 +20,7 @@ current_user = fastapi_users.current_user()
 
 
 @router.get('/count')
-async def count_completed(is_completed: bool, user: User = Depends(current_user)):
+async def count_completed(is_completed: bool = None, user: User = Depends(current_user)):
     try:
         result = await TaskService(user.id).get_count_by_completed(is_completed)
         if result['success']:

@@ -21,9 +21,10 @@ export default function Landing({isAuthenticated, setIsAuthenticated}) {
     async function getAndSetNumberAllTodo() {
       try{
         const backend_url = process.env.REACT_APP_BACKEND_URL;
-        const response = await axios.get(`http://${backend_url}/task_manager/task`, {
+        const response = await axios.get(`${backend_url}/task_manager/task/count`, {
             withCredentials: true
         });
+        console.log('К-во',)
         setNumberAllTodo(response.data.count);
       } catch (error) {
         setMessage('');
@@ -38,7 +39,7 @@ export default function Landing({isAuthenticated, setIsAuthenticated}) {
     async function getAndSetNumberAllTodoNotCompleted() {
       try{
         const backend_url = process.env.REACT_APP_BACKEND_URL;
-        const response = await axios.get(`http://${backend_url}/task_manager/task/count?is_completed=false`, {
+        const response = await axios.get(`${backend_url}/task_manager/task/count?is_completed=false`, {
            withCredentials: true
         });
         setNumberAllTodoNotCompleted(response.data.count);

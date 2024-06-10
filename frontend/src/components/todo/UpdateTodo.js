@@ -25,7 +25,7 @@ function UpdateTodo({isAuthenticated, setIsAuthenticated, match}) {
   
     try {
       const backend_url = process.env.REACT_APP_BACKEND_URL;
-      await axios.patch(`http://${backend_url}/task_manager/task/update`, {
+      await axios.patch(`${backend_url}/task_manager/task/update`, {
             'task_id': match.params.id,
             'title':title,
             'target_date':target_date}, {withCredentials: true,});
@@ -50,7 +50,7 @@ function UpdateTodo({isAuthenticated, setIsAuthenticated, match}) {
       let response = null;
       try {
         const backend_url = process.env.REACT_APP_BACKEND_URL;
-        response = await axios.get(`http://${backend_url}/task_manager/task/${match.params.id}`, {
+        response = await axios.get(`${backend_url}/task_manager/task/${match.params.id}`, {
           withCredentials: true,
         });
       } catch(error){

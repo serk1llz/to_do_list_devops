@@ -6,12 +6,12 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /app/task_manager
+COPY . ./task_manager
 
 ENV PYTHONUNBUFFERED=1
 
 EXPOSE 8080
 
-WORKDIR /app/task_manager
+WORKDIR ./task_manager
 
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]

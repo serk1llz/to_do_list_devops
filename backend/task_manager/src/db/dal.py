@@ -31,8 +31,11 @@ class TaskDAL:
         query = (
             select(Task)
             .join(TaskUser)
-            .where(TaskUser.user_id == self.user_id, Task.is_completed == completed)
+            .where(TaskUser.user_id == self.user_id)
         )
+        if completed is not None:
+            query = query.filter(Task.is_completed == completed)
+
         result = await self.session.execute(query)
         tasks = result.scalars().all()
         return {'success': True, 'count': len(tasks)}

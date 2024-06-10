@@ -27,12 +27,12 @@ function Todos({isAuthenticated, setIsAuthenticated}) {
 			try {
                 const backend_url = process.env.REACT_APP_BACKEND_URL;
 
-				let url = `http://${backend_url}/task_manager/task/?page=${page}&n=${n}`;
+				let url = `${backend_url}/task_manager/task/?page=${page}&n=${n}`;
 
 				if(filter === 'Completed'){
-					url = `http://${backend_url}/task_manager/task/?page=${page}&n=${n}&is_completed=true`;
+					url = `${backend_url}/task_manager/task/?page=${page}&n=${n}&is_completed=true`;
 				} else if(filter === 'Not Completed'){
-					url = `http://${backend_url}/task_manager/task/?page=${page}&n=${n}&is_completed=false`;
+					url = `${backend_url}/task_manager/task/?page=${page}&n=${n}&is_completed=false`;
 				}
 				
 				response = await axios.get(url, {withCredentials: true,});
@@ -134,7 +134,7 @@ function Todos({isAuthenticated, setIsAuthenticated}) {
 		try {
       const backend_url = process.env.REACT_APP_BACKEND_URL;
 
-      await axios.patch(`http://${backend_url}/task_manager/task/update`,
+      await axios.patch(`${backend_url}/task_manager/task/update`,
              {'is_completed': true, 'task_id': id} , {
 				withCredentials: true
 			});
@@ -155,7 +155,7 @@ function Todos({isAuthenticated, setIsAuthenticated}) {
             console.log('ID',id)
             const backend_url = process.env.REACT_APP_BACKEND_URL;
 
-            await axios.delete(`http://${backend_url}/task_manager/task/delete/${id}`,
+            await axios.delete(`${backend_url}/task_manager/task/delete/${id}`,
              {
                 withCredentials: true,
             });

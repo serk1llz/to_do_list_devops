@@ -20,7 +20,8 @@ function Signin({isAuthenticated, setIsAuthenticated}) {
       formData.append('username', email);
       formData.append('password', password);
       const backend_url = process.env.REACT_APP_BACKEND_URL;
-      const response = await axios.post(`http://${backend_url}/user_manager/auth/jwt/login`,
+      const url = `${backend_url}/user_manager/auth/jwt/login`
+      const response = await axios.post(url,
                             formData, {
                             withCredentials: true
                           });
