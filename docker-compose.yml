@@ -70,6 +70,7 @@ services:
       DB_SCHEMA: ${DB_SCHEMA}
     depends_on:
       - postgres
+    restart: on-failure:5
     networks:
       - app-network
 
