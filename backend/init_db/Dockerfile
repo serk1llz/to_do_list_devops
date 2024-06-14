@@ -7,7 +7,7 @@ RUN apt-get update && \
 WORKDIR /app
 
 COPY alembic.ini .
-COPY init_db ./init_db
+COPY models ./models
 COPY config.py .
 COPY migrations/ ./migrations/
 COPY requirements.txt .

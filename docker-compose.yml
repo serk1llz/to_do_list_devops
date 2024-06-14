@@ -1,4 +1,4 @@
-version: "4"
+version: "3.8"
 
 services:
   task_manager:
@@ -50,7 +50,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASS}
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
-      - habrdb-data:/var/lib/postgresql/data
+      - tododb-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     restart: unless-stopped
@@ -59,7 +59,7 @@ services:
 
   alembic:
     build:
-      context: ./backend
+      context: ./backend/init_db
       dockerfile: ./Dockerfile
     environment:
       DB_HOST: ${DB_HOST}
@@ -117,7 +117,7 @@ services:
       - app-network
 
 volumes:
-  habrdb-data:
+  tododb-data:
   pgadmin-data:
 
 networks:

@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from config import settings
-from init_db.models import Base
+from models.models import Base
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -28,6 +28,7 @@ config.set_main_option('sqlalchemy.url', settings.database_url + '?async_fallbac
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+version_table_schema = settings.DB_SCHEMA
 
 
 def run_migrations_offline() -> None:
@@ -48,12 +49,13 @@ def run_migrations_offline() -> None:
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
+        version_table_schema=version_table_schema
     )
 
     with context.begin_transaction():
+        context.execute(f"CREATE SCHEMA IF NOT EXISTS {version_table_schema}")
         context.run_migrations()
 
-version_table_schema = settings.DB_SCHEMA
 
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
@@ -76,6 +78,7 @@ def run_migrations_online() -> None:
         )
 
         with context.begin_transaction():
+            context.execute(f"CREATE SCHEMA IF NOT EXISTS {version_table_schema}")
             context.run_migrations()
 
 
