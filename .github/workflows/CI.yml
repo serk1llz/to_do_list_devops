@@ -13,11 +13,5 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v5.4.0
         with:
-          context: .
-          file: |
-            backend/init_db/Dockerfile
-            backend/task_manager/Dockerfile
-            backend/user_manager/Dockerfile
-            frontend/Dockerfile
           push: false
           tags: user/app:latest
