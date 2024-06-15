@@ -14,6 +14,6 @@ jobs:
         uses: docker/build-push-action@v5.4.0
         with:
           file: |
-            backend/task_manager/Dockerfile
+            backend/init_db/Dockerfile
           push: false
           tags: user/app:latest
