@@ -10,9 +10,30 @@ jobs:
         uses: docker/setup-qemu-action@v3.0.0
       - name: Docker Setup Buildx
         uses: docker/setup-buildx-action@v3.3.0
-      - name: Build and push Docker images
+      - name: Build and push init_db Docker image
         uses: docker/build-push-action@v5.4.0
         with:
           context: backend/init_db
           push: false
-          tags: user/app:latest
+          tags: user/init_db:latest
+
+      - name: Build and push task_manager Docker image
+        uses: docker/build-push-action@v5.4.0
+        with:
+          context: backend/task_manager
+          push: false
+          tags: user/task_manager:latest
+
+      - name: Build and push user_manager Docker image
+        uses: docker/build-push-action@v5.4.0
+        with:
+          context: backend/user_manager
+          push: false
+          tags: user/user_manager:latest
+          
+      - name: Build and push frontend Docker image
+        uses: docker/build-push-action@v5.4.0
+        with:
+          context: frontend
+          push: false
+          tags: user/init_db:latest
