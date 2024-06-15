@@ -15,5 +15,5 @@ jobs:
         with:
           file: |
             backend/init_db/Dockerfile
-          push: false
+          push: true
           tags: user/app:latest
