@@ -29,18 +29,25 @@ jobs:
   lint:
     needs: build
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        context:
+          - backend/init_db
+          - backend/task_manager
+          - backend/user_manager
     steps:
       - uses: actions/checkout@v4
       - name: Python Linter
         uses: sunnysid3up/python-linter@master
         with:
-          source: "backend/user_manager"
+          source: ${{ matrix.context }}
           strict: "low"
           mypy-options: "--ignore-missing-imports"
           pylint-options: ""
           black-options: "--check --diff ."
           isort-options: ""
           django: false
+          tags: user/${{ matrix.context }}:latest
 
 
 
