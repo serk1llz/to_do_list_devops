@@ -40,7 +40,7 @@ jobs:
       - name: Python Linter
         uses: sunnysid3up/python-linter@master
         with:
-          source: ${{ matrix.context }}
+          source: ${ matrix.context }
           mypy-options: "--ignore-missing-imports"
           pylint-options: "--confidence=INFERENCE --exit-zero **/*.py **/**/*.py *.py"
           black-options: "--check --diff ."
