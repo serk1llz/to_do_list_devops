@@ -43,7 +43,7 @@ jobs:
           source: ${{ matrix.context }}
           mypy-options: "--ignore-missing-imports"
           pylint-options: "--exit-zero **/*.py *.py **/**/*.py **/**/**/*.py"
-          black-options: "--check --diff"
+          black-options: "--exit-zero ${matrix.context}/**/*.py ${matrix.context}/*.py ${matrix.context}/**/**/*.py"
           isort-options: "--profile black"
           django: false
 
