@@ -8,20 +8,9 @@ class Settings(BaseSettings):
     DB_PASS: str
     DB_USER: str
     DB_SCHEMA: str
-
     DB_HOST_TEST: str
-    
-    
-    
     DB_PORT_TEST: int
-    
-    
-    
-    
     DB_NAME_TEST: str
-    
-    
-    
     DB_PASS_TEST: str
     DB_USER_TEST: str
 
