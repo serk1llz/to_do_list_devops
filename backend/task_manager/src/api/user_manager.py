@@ -1,7 +1,9 @@
 from typing import Optional
+
 from config import settings
 from fastapi import Depends, Request
-from fastapi_users import BaseUserManager, IntegerIDMixin, exceptions, models, schemas
+from fastapi_users import (BaseUserManager, IntegerIDMixin, exceptions, models,
+                           schemas)
 from src.db.database import get_user_db
 from src.db.models import User
 

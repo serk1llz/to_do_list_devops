@@ -1,13 +1,15 @@
 import asyncio
 from typing import AsyncGenerator
+
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from config import settings
-from src.db.models import metadata_obj, User
-from src.db.database import get_async_session
 from main import app
-from sqlalchemy.sql import text
 from passlib.context import CryptContext
+from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
+                                    create_async_engine)
+from sqlalchemy.sql import text
+from src.db.database import get_async_session
+from src.db.models import User, metadata_obj
 from src.services.services import TaskService
 
 engine_test = create_async_engine(settings.database_url_test, echo=False)

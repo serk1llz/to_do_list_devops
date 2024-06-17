@@ -1,13 +1,13 @@
-from fastapi import status, APIRouter, Depends
+from fastapi import APIRouter, Depends, status
 from fastapi.responses import JSONResponse
 from fastapi_users import FastAPIUsers
-from src.api.schemas import TaskPOST, TaskDelete, TaskPatch, Task
-from src.services.services import TaskService
-from src.api.utils import Paginator
-from src.db.models import User
-from src.db.database import async_session_maker
 from src.api.auth import auth_backend
+from src.api.schemas import Task, TaskDelete, TaskPatch, TaskPOST
 from src.api.user_manager import get_user_manager
+from src.api.utils import Paginator
+from src.db.database import async_session_maker
+from src.db.models import User
+from src.services.services import TaskService
 
 router = APIRouter(prefix="/task", tags=["task"])
 

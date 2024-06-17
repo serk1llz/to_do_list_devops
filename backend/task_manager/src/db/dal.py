@@ -1,8 +1,9 @@
 from datetime import datetime
-from src.db.models import Task, TaskUser, User
+
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.api.utils import Paginator
+from src.db.models import Task, TaskUser, User
 
 
 class TaskDAL:

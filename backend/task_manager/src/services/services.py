@@ -1,7 +1,8 @@
 from datetime import datetime
-from src.db.database import async_session_maker
+
 from src.api.utils import Paginator
 from src.db.dal import TaskDAL
+from src.db.database import async_session_maker
 
 
 class TaskService:

@@ -1,6 +1,7 @@
+from datetime import datetime
+
 import pytest
 from src.api.utils import Paginator
-from datetime import datetime
 
 paginator = Paginator()
 

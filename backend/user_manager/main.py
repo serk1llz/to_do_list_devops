@@ -1,11 +1,11 @@
-from fastapi_users import FastAPIUsers
-from db.models import User
-from user_manager import get_user_manager
-from fastapi import FastAPI, Depends
 import uvicorn
-from starlette.middleware.cors import CORSMiddleware
-from schemas import UserRead, UserCreate
 from auth import auth_backend
+from db.models import User
+from fastapi import Depends, FastAPI
+from fastapi_users import FastAPIUsers
+from schemas import UserCreate, UserRead
+from starlette.middleware.cors import CORSMiddleware
+from user_manager import get_user_manager
 
 app = FastAPI()
 origins = [
