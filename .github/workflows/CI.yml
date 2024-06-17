@@ -47,7 +47,6 @@ jobs:
           black-options: "--check --diff ."
           isort-options: ""
           django: false
-          tags: user/${{ matrix.context }}:latest
 
 
 
