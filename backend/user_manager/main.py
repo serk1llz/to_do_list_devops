@@ -5,7 +5,6 @@ from fastapi import Depends, FastAPI
 from fastapi_users import FastAPIUsers
 from schemas import UserCreate, UserRead
 from starlette.middleware.cors import CORSMiddleware
-
 from user_manager import get_user_manager
 
 app = FastAPI()
