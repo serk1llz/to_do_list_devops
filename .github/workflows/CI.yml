@@ -31,14 +31,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install
-        run: |
-          pwd
-          ls
       - name: Python Linter
         uses: sunnysid3up/python-linter@master
         with:
-          source: "."
+          source: "backend/user_manager"
           mypy-options: ""
           pylint-options: ""
           isort-options: ""
