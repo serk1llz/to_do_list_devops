@@ -10,11 +10,6 @@ jobs:
           - backend/task_manager
           - backend/user_manager
           - frontend
-        tags:
-          - user/init_db:latest
-          - user/task_manager:latest
-          - user/user_manager:latest
-          - user/frontend:latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.7
@@ -30,7 +25,7 @@ jobs:
         with:
           context: ${{ matrix.context }}
           push: false
-          tags: ${{ matrix.tags }}
+          tags: user/${{ matrix.context }}:latest
   lint:
     needs: build
     runs-on: ubuntu-latest
