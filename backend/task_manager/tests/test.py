@@ -1,4 +1,5 @@
 from datetime import datetime
+
 from src.api.utils import Paginator
 
 paginator = Paginator()
