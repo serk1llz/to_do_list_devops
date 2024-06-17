@@ -30,16 +30,15 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: linting
-        uses: programmingwithalex/pylinter@main
+      - uses: actions/checkout@v4
+      - name: Python Linter
+        uses: sunnysid3up/python-linter@master
         with:
-          context: backend/user_manager
-          python-root: '.'
-          flake8-flags: ''
-          mypy-flags: ''
-          fail-on-isort: false
-
-
+          source: "backend"
+          mypy-options: ""
+          pylint-options: ""
+          isort-options: ""
+          django: true
 
 
 
