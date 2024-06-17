@@ -7,6 +7,11 @@ from sqlalchemy.orm import Mapped, declarative_base, mapped_column, relationship
 
 metadata_obj = MetaData(schema=settings.DB_SCHEMA)
 
+
+
+
+
+
 Base = declarative_base(metadata=metadata_obj)
 
 repr_cols_num = 12
