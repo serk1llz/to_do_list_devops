@@ -4,8 +4,7 @@ from config import settings
 from db.database import get_user_db
 from db.models import User
 from fastapi import Depends, Request
-from fastapi_users import (BaseUserManager, IntegerIDMixin, exceptions, models,
-                           schemas)
+from fastapi_users import BaseUserManager, IntegerIDMixin, exceptions, models, schemas
 
 SECRET = settings.SECRET
 

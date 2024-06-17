@@ -3,8 +3,7 @@ from datetime import datetime
 from config import settings
 from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, MetaData, String
-from sqlalchemy.orm import (Mapped, declarative_base, mapped_column,
-                            relationship)
+from sqlalchemy.orm import Mapped, declarative_base, mapped_column, relationship
 
 metadata_obj = MetaData(schema=settings.DB_SCHEMA)
 

@@ -5,8 +5,7 @@ import pytest
 from config import settings
 from main import app
 from passlib.context import CryptContext
-from sqlalchemy.ext.asyncio import (AsyncSession, async_sessionmaker,
-                                    create_async_engine)
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.sql import text
 from src.db.database import get_async_session
 from src.db.models import User, metadata_obj
