@@ -1,2 +1,8 @@
 .dockerignore
 Dockerfile
+venv/
+.env
+tests/
+__pycache__/
+pyproject.toml
+.pytest_cache/

@@ -13,9 +13,13 @@ services:
       DB_PASS: ${DB_PASS}
       DB_PORT: ${DB_PORT}
       DB_SCHEMA: ${DB_SCHEMA}
+      DB_HOST_TEST: ${DB_HOST_TEST}
+      DB_NAME_TEST: ${DB_NAME_TEST}
+      DB_USER_TEST: ${DB_USER_TEST}
+      DB_PASS_TEST: ${DB_PASS_TEST}
+      DB_PORT_TEST: ${DB_PORT_TEST}
       SECRET: ${SECRET}
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    restart: unless-stopped
     depends_on:
       - alembic
     networks:
@@ -33,9 +37,13 @@ services:
       DB_PASS: ${DB_PASS}
       DB_PORT: ${DB_PORT}
       DB_SCHEMA: ${DB_SCHEMA}
+      DB_HOST_TEST: ${DB_HOST_TEST}
+      DB_NAME_TEST: ${DB_NAME_TEST}
+      DB_USER_TEST: ${DB_USER_TEST}
+      DB_PASS_TEST: ${DB_PASS_TEST}
+      DB_PORT_TEST: ${DB_PORT_TEST}
       SECRET: ${SECRET}
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${DB_PASS}
+    restart: unless-stopped
     depends_on:
       - alembic
     networks:
@@ -48,11 +56,27 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASS}
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
       - tododb-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  postgres_test:
+    container_name: postgres_container_test
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${DB_NAME_TEST}
+      POSTGRES_USER: ${DB_USER_TEST}
+      POSTGRES_PASSWORD: ${DB_PASS_TEST}
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    ports:
+      - "6000:5432"
     restart: unless-stopped
     networks:
       - app-network
@@ -69,6 +93,7 @@ services:
       DB_PORT: ${DB_PORT}
       DB_SCHEMA: ${DB_SCHEMA}
     depends_on:
+      - postgres_test
       - postgres
     restart: on-failure:5
     networks:
@@ -95,12 +120,13 @@ services:
     image: nginx:latest
     container_name: nginx_container
     ports:
-      - "8001:80"
+      - "8005:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     depends_on:
       - task_manager
       - user_manager
+    restart: unless-stopped
     networks:
       - app-network
 
@@ -108,7 +134,10 @@ services:
     build:
       context: ./frontend
       dockerfile: ./Dockerfile
+      args:
+        REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
     container_name: frontend_container
+    restart: unless-stopped
     ports:
       - "3000:3000"
     depends_on:
