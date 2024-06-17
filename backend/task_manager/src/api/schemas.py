@@ -1,5 +1,6 @@
 from datetime import datetime
-from typing import Optional, List
+from typing import List, Optional
+
 from pydantic import BaseModel
 
 
@@ -24,4 +25,3 @@ class TaskPatch(BaseModel):
 
 class TaskDelete(BaseModel):
     task_id: int
-

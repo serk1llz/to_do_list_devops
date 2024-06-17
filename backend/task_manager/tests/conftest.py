@@ -1,13 +1,14 @@
 import asyncio
 from typing import AsyncGenerator
+
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from config import settings
-from src.db.models import metadata_obj, User
-from src.db.database import get_async_session
 from main import app
-from sqlalchemy.sql import text
 from passlib.context import CryptContext
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.sql import text
+from src.db.database import get_async_session
+from src.db.models import User, metadata_obj
 from src.services.services import TaskService
 
 engine_test = create_async_engine(settings.database_url_test, echo=False)
@@ -16,7 +17,7 @@ async_session_maker = async_sessionmaker(
     autocommit=False,
     class_=AsyncSession,
     expire_on_commit=False,
-    autoflush=True
+    autoflush=True,
 )
 metadata_obj.bind = engine_test
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -47,7 +48,7 @@ async def create_user():
         hashed_password = pwd_context.hash(password)
         async with async_session_maker() as session:
             async with session.begin():
-                user = User(email=email, hashed_password=hashed_password, role='User')
+                user = User(email=email, hashed_password=hashed_password, role="User")
                 session.add(user)
                 await session.flush()
                 user_id = user.id
@@ -70,4 +71,3 @@ def event_loop(request):
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
     loop.close()
-
