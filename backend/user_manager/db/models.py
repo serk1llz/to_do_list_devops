@@ -30,7 +30,7 @@ class Task(Base):
     title: Mapped[str] = mapped_column(String(100), nullable=False)
     target_date: Mapped[datetime] = mapped_column(nullable=False)
     is_completed: Mapped[bool] = mapped_column(Boolean, default=False)
-    users: Mapped[list['TaskUser']] = relationship(back_populates="task")
+    users: Mapped[list["TaskUser"]] = relationship(back_populates="task")
 
 
 class User(SQLAlchemyBaseUserTable[int], Base):
@@ -43,7 +43,7 @@ class User(SQLAlchemyBaseUserTable[int], Base):
     is_superuser: bool = Column(Boolean, default=False, nullable=False)
     is_verified: bool = Column(Boolean, default=False, nullable=False)
 
-    tasks: Mapped[list['TaskUser']] = relationship(back_populates="user")
+    tasks: Mapped[list["TaskUser"]] = relationship(back_populates="user")
 
 
 class TaskUser(Base):
@@ -52,5 +52,5 @@ class TaskUser(Base):
     task_id: Mapped[int] = mapped_column(ForeignKey("task.id"))
     user_id: Mapped[int] = mapped_column(ForeignKey("user.id"))
 
-    task: Mapped['Task'] = relationship(back_populates="users")
-    user: Mapped['User'] = relationship(back_populates="tasks")
+    task: Mapped["Task"] = relationship(back_populates="users")
+    user: Mapped["User"] = relationship(back_populates="tasks")

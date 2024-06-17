@@ -16,10 +16,10 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
         print(f"User {user.id} has registered.")
 
     async def create(
-            self,
-            user_create: schemas.UC,
-            safe: bool = False,
-            request: Optional[Request] = None,
+        self,
+        user_create: schemas.UC,
+        safe: bool = False,
+        request: Optional[Request] = None,
     ) -> models.UP:
         """
         Create a user in database.
@@ -47,7 +47,7 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, int]):
         password = user_dict.pop("password")
         user_dict["hashed_password"] = self.password_helper.hash(password)
 
-        user_dict['role'] = 'User'
+        user_dict["role"] = "User"
 
         created_user = await self.user_db.create(user_dict)
 

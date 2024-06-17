@@ -24,4 +24,3 @@ class TaskPatch(BaseModel):
 
 class TaskDelete(BaseModel):
     task_id: int
-

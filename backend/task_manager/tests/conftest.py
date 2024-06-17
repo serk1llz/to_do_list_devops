@@ -16,7 +16,7 @@ async_session_maker = async_sessionmaker(
     autocommit=False,
     class_=AsyncSession,
     expire_on_commit=False,
-    autoflush=True
+    autoflush=True,
 )
 metadata_obj.bind = engine_test
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -47,7 +47,7 @@ async def create_user():
         hashed_password = pwd_context.hash(password)
         async with async_session_maker() as session:
             async with session.begin():
-                user = User(email=email, hashed_password=hashed_password, role='User')
+                user = User(email=email, hashed_password=hashed_password, role="User")
                 session.add(user)
                 await session.flush()
                 user_id = user.id
@@ -70,4 +70,3 @@ def event_loop(request):
     loop = asyncio.get_event_loop_policy().new_event_loop()
     yield loop
     loop.close()
-

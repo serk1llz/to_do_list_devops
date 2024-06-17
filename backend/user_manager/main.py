@@ -9,7 +9,7 @@ from auth import auth_backend
 
 app = FastAPI()
 origins = [
-    'http://localhost:3000',
+    "http://localhost:3000",
 ]
 
 app.add_middleware(
@@ -17,8 +17,12 @@ app.add_middleware(
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["GET", "POST", "DELETE", "PATCH", "OPTIONS"],
-    allow_headers=["Content-Type", "Access-Control-Allow-Origin", "Access-Control-Allow-Headers",
-                   "Access-Control-Allow-Methods"],
+    allow_headers=[
+        "Content-Type",
+        "Access-Control-Allow-Origin",
+        "Access-Control-Allow-Headers",
+        "Access-Control-Allow-Methods",
+    ],
 )
 
 fastapi_users = FastAPIUsers[User, int](
@@ -38,5 +42,5 @@ app.include_router(
     tags=["auth"],
 )
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     uvicorn.run(app, host="localhost", port=8000)

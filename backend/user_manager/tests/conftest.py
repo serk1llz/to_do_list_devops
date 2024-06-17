@@ -15,7 +15,7 @@ async_session_maker = async_sessionmaker(
     autocommit=False,
     class_=AsyncSession,
     expire_on_commit=False,
-    autoflush=True
+    autoflush=True,
 )
 metadata_obj.bind = engine_test
 

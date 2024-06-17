@@ -11,42 +11,54 @@ class TaskService:
 
     async def get_all_tasks(self, is_completed: bool, paginator_params: Paginator):
         try:
-            return await TaskDAL(self.session, self.user_id).get_all_tasks(is_completed, paginator_params)
+            return await TaskDAL(self.session, self.user_id).get_all_tasks(
+                is_completed, paginator_params
+            )
         except Exception as e:
             print(e)
-            return {'success': False, 'data': None}
+            return {"success": False, "data": None}
 
     async def add_task_for_user(self, title: str, target_date: datetime):
         try:
-            return await TaskDAL(self.session, self.user_id).add_task_for_user(title, target_date)
+            return await TaskDAL(self.session, self.user_id).add_task_for_user(
+                title, target_date
+            )
         except Exception as e:
             print(e)
-            return {'success': False}
+            return {"success": False}
 
     async def update_task_for_user(self, **kwargs):
         try:
-            return await TaskDAL(self.session, self.user_id).update_task_for_user(**kwargs)
+            return await TaskDAL(self.session, self.user_id).update_task_for_user(
+                **kwargs
+            )
         except Exception as e:
             print(e)
-            return {'success': False}
+            return {"success": False}
 
     async def delete_task_for_user(self, task_id: int):
         try:
-            return await TaskDAL(self.session, self.user_id).delete_task_for_user(task_id)
+            return await TaskDAL(self.session, self.user_id).delete_task_for_user(
+                task_id
+            )
         except Exception as e:
             print(e)
-            return {'success': False}
+            return {"success": False}
 
     async def get_count_by_completed(self, completed: bool):
         try:
-            return await TaskDAL(self.session, self.user_id).get_count_by_completed(completed)
+            return await TaskDAL(self.session, self.user_id).get_count_by_completed(
+                completed
+            )
         except Exception as e:
             print(e)
-            return {'success': False, 'count': None}
+            return {"success": False, "count": None}
 
     async def get_task_by_id(self, task_id: int):
         try:
-            return await TaskDAL(self.session, self.user_id).get_task_by_id(task_id, self.user_id)
+            return await TaskDAL(self.session, self.user_id).get_task_by_id(
+                task_id, self.user_id
+            )
         except Exception as e:
             print(e)
-            return {'success': False, 'data': None}
+            return {"success": False, "data": None}
