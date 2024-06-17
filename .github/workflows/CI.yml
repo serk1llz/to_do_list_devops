@@ -1,9 +1,5 @@
 name: CI/CD Pipeline
-on:
-  push:
-    branches: ["develop"]
-  pull_request:
-    branches: ["develop"]
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
