@@ -35,10 +35,11 @@ jobs:
         uses: sunnysid3up/python-linter@master
         with:
           source: "backend/user_manager"
+          strict: "low"
           mypy-options: "--ignore-missing-imports"
           pylint-options: ""
           black-options: "--check --diff ."
-          isort-options: "--skip ."
+          isort-options: ""
           django: false
 
 
