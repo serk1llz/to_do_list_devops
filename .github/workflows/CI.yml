@@ -37,6 +37,7 @@ jobs:
           source: "backend/user_manager"
           mypy-options: "--ignore-missing-imports"
           pylint-options: ""
+          black-options: "false"
           isort-options: ""
           django: false
 
