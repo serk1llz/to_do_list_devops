@@ -1,4 +1,3 @@
-import pytest
 from src.api.utils import Paginator
 from datetime import datetime
 

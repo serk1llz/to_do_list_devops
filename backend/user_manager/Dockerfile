@@ -1,13 +1,26 @@
-FROM python:3.12-slim
+FROM python:3.12-slim AS build
 
-WORKDIR /user_manager
+WORKDIR /app
 
 COPY . .
 
-RUN pip install --no-cache-dir -r /user_manager/requirements.txt
+RUN pip install -r requirements.txt
+
+COPY ./tests ./tests
+
+RUN pytest ./tests/test.py
+
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
 
 EXPOSE 8000
-
 
 ENTRYPOINT ["uvicorn", "main:app"]
 
