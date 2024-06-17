@@ -54,13 +54,14 @@ class TaskDAL:
             return {'success': False}
         task_user = TaskUser(task_id=task.id, user_id=self.user_id)
         self.session.add(task_user)
+        await self.session.flush()
         await self.session.commit()
         return {'success': True}
 
     async def update_task_for_user(self, **kwargs):
-        print(kwargs)
-        if ('target_date' in kwargs) & (kwargs['target_date'] is not None):
-            kwargs['target_date'] = kwargs['target_date'].replace(tzinfo=None)
+        if 'target_date' in kwargs:
+            if kwargs['target_date'] is not None:
+                kwargs['target_date'] = kwargs['target_date'].replace(tzinfo=None)
 
         result = await self.session.execute(select(User).filter_by(id=self.user_id))
         user = result.scalars().first()

@@ -1,17 +1,14 @@
 FROM python:3.12-slim
 
-WORKDIR /app
+WORKDIR /task_manager
 
-COPY requirements.txt .
+COPY . .
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r /task_manager/requirements.txt
 
-COPY . ./task_manager
+EXPOSE 8000
 
-ENV PYTHONUNBUFFERED=1
 
-EXPOSE 8080
+ENTRYPOINT ["uvicorn", "main:app"]
 
-WORKDIR ./task_manager
-
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["--host", "0.0.0.0", "--port", "8080", "--reload"]
