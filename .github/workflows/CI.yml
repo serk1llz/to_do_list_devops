@@ -41,11 +41,10 @@ jobs:
         uses: sunnysid3up/python-linter@master
         with:
           source: ${{ matrix.context }}
-          strict: "low"
           mypy-options: "--ignore-missing-imports"
           pylint-options: ""
           black-options: "--check --diff ."
-          isort-options: ""
+          isort-options: "--profile black ."
           django: false
 
 
