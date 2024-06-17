@@ -34,10 +34,11 @@ jobs:
       - name: Python Linter
         uses: sunnysid3up/python-linter@master
         with:
-          source: "backend/user_manager"
+          source: "."
           mypy-options: "--ignore-missing-imports"
           pylint-options: ""
           black-options: "--check"
+          isort-options: ""
           django: false
 
 
