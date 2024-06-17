@@ -8,10 +8,14 @@ RUN npm install
 
 COPY . .
 
-ENV REACT_APP_BACKEND_URL=http://localhost:8001
+ARG REACT_APP_BACKEND_URL
+
+ENV REACT_APP_BACKEND_URL=$REACT_APP_BACKEND_URL
 
 RUN npm run build
 
 Expose 3000
 
-CMD ["npm", "run", "production"]
+ENTRYPOINT ["npm", "run"]
+
+CMD ["production"]
