@@ -42,7 +42,7 @@ jobs:
         with:
           source: ${{ matrix.context }}
           mypy-options: "--ignore-missing-imports"
-          pylint-options: ""
+          pylint-options: "--rcfile=setup.cfg"
           black-options: "--check --diff ."
           isort-options: "--profile black"
           django: false
