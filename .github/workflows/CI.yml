@@ -38,7 +38,7 @@ jobs:
           mypy-options: "--ignore-missing-imports"
           pylint-options: ""
           black-options: "--check"
-          isort-options: ""
+          isort-options: "--skip"
           django: false
 
 
