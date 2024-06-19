@@ -13,7 +13,13 @@ services:
       DB_PASS: ${DB_PASS}
       DB_PORT: ${DB_PORT}
       DB_SCHEMA: ${DB_SCHEMA}
+      DB_HOST_TEST: ${DB_HOST_TEST}
+      DB_NAME_TEST: ${DB_NAME_TEST}
+      DB_USER_TEST: ${DB_USER_TEST}
+      DB_PASS_TEST: ${DB_PASS_TEST}
+      DB_PORT_TEST: ${DB_PORT_TEST}
       SECRET: ${SECRET}
+
     restart: unless-stopped
     depends_on:
       - alembic
@@ -32,6 +38,11 @@ services:
       DB_PASS: ${DB_PASS}
       DB_PORT: ${DB_PORT}
       DB_SCHEMA: ${DB_SCHEMA}
+      DB_HOST_TEST: ${DB_HOST_TEST}
+      DB_NAME_TEST: ${DB_NAME_TEST}
+      DB_USER_TEST: ${DB_USER_TEST}
+      DB_PASS_TEST: ${DB_PASS_TEST}
+      DB_PORT_TEST: ${DB_PORT_TEST}
       SECRET: ${SECRET}
     restart: unless-stopped
     depends_on:
