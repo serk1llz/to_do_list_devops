@@ -12,4 +12,4 @@ jobs:
         
       - name: Run tests
         run: |
-          docker compose —file docker-compose-tests.yml up -d
+          docker compose -f docker-compose-tests.yml up -d
