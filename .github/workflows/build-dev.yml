@@ -1,0 +1,28 @@
+name: Build
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        context:
+          - backend/init_db
+          - backend/task_manager
+          - backend/user_manager
+          - frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.1.7
+
+      - name: Docker Setup QEMU
+        uses: docker/setup-qemu-action@v3.0.0
+
+      - name: Docker Setup Buildx
+        uses: docker/setup-buildx-action@v3.3.0
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5.4.0
+        with:
+          context: ${{ matrix.context }}
+          push: true
+          tags: user/${{ matrix.context }}:dev-latest
