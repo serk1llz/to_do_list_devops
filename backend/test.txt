@@ -1,4 +1,3 @@
 test file asdsadsadsa
 test pull request
-Добавил build
-Проверка завершения
+Работа в мастер
