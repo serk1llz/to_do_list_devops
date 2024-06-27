@@ -1,0 +1,66 @@
+version: "3.8"
+
+services:
+  postgres_test:
+    container_name: postgres_container_test
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${DB_NAME_TEST}
+      POSTGRES_USER: ${DB_USER_TEST}
+      POSTGRES_PASSWORD: ${DB_PASS_TEST}
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    ports:
+      - 6000:5432
+    networks:
+      - test-network
+
+  task_manager_test:
+    build:
+      context: ./backend/task_manager
+      dockerfile: ./DockerfileTest
+    container_name: task_manager_container_test
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_PORT: ${DB_PORT}
+      DB_SCHEMA: ${DB_SCHEMA}
+      DB_HOST_TEST: ${DB_HOST_TEST}
+      DB_NAME_TEST: ${DB_NAME_TEST}
+      DB_USER_TEST: ${DB_USER_TEST}
+      DB_PASS_TEST: ${DB_PASS_TEST}
+      DB_PORT_TEST: ${DB_PORT_TEST}
+      SECRET: ${SECRET}
+    restart: on-failure:5
+    depends_on:
+      - postgres_test
+    networks:
+      - test-network
+
+  user_manager_test:
+    build:
+      context: ./backend/user_manager
+      dockerfile: ./DockerfileTest
+    container_name: user_manager_container_test
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DB_PORT: ${DB_PORT}
+      DB_SCHEMA: ${DB_SCHEMA}
+      DB_HOST_TEST: ${DB_HOST_TEST}
+      DB_NAME_TEST: ${DB_NAME_TEST}
+      DB_USER_TEST: ${DB_USER_TEST}
+      DB_PASS_TEST: ${DB_PASS_TEST}
+      DB_PORT_TEST: ${DB_PORT_TEST}
+      SECRET: ${SECRET}
+    depends_on:
+      - task_manager_test
+    restart: on-failure:5
+    networks:
+      - test-network
+networks:
+  test-network:
+    driver: bridge

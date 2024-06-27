@@ -1,0 +1,18 @@
+FROM python:3.12-slim
+
+WORKDIR /user_manager
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY ./tests ./tests
+COPY ./config.py .
+COPY ./main.py .
+COPY ./db ./db
+COPY ./pyproject.toml .
+COPY ./user_manager.py .
+COPY ./schemas.py .
+COPY ./auth.py .
+
+ENTRYPOINT ["pytest", "./tests/test.py"]

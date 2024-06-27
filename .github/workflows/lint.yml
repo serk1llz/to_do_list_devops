@@ -1,0 +1,25 @@
+name: Lint
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        context:
+          - backend/init_db
+          - backend/task_manager
+          - backend/user_manager
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python Linter
+        uses: sunnysid3up/python-linter@master
+        with:
+          source: ${{ matrix.context }}
+          mypy-options: "--ignore-missing-imports"
+          pylint-options: "--exit-zero ${{ matrix.context }}/**/*.py ${{ matrix.context }}/*.py ${{ matrix.context }}/**/**/*.py"
+          black-options: "--check --diff"
+          isort-options: "--profile black"
+          django: false

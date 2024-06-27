@@ -58,9 +58,9 @@ async def create_user():
     return _create_user
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="session", autouse=True)
 async def task_service(create_user):
-    user_id = await create_user(email="test222220@mail.ru", password="test")
+    user_id = await create_user(email="test@mail.ru", password="test")
     async with async_session_maker() as session:
         task_service = TaskService(user_id, session)
         yield task_service

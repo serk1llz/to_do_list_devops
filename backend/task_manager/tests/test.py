@@ -1,6 +1,5 @@
 from datetime import datetime
 
-import pytest
 from src.api.utils import Paginator
 
 paginator = Paginator()
@@ -13,7 +12,7 @@ async def test_add_task(task_service):
 
 async def test_all_task(task_service):
     response = await task_service.get_all_tasks(None, paginator)
-    assert len(response) >= 0
+    assert len(response) <= 0
 
 
 async def test_task_count(task_service):
