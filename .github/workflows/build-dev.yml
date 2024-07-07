@@ -30,5 +30,3 @@ jobs:
           context: ${{ matrix.context }}
           push: false
           tags: user/${{ matrix.context }}:latest
-  lint:
-    runs-on: ubuntu-latest
