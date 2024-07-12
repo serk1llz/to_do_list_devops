@@ -26,4 +26,4 @@ jobs:
       - name: Run tests
         run: |
           docker compose -f docker-compose-tests.yml up -d
-          bash test.sh
+          bash backend/check_test.sh 

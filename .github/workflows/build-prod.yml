@@ -1,0 +1,49 @@
+name: Build and Push Prod Images
+on:
+  push:
+    tags:
+      - v*.*.*
+jobs:
+  build_and_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push frontend_container
+        uses: docker/build-push-action@v2
+        with:
+          context: ./frontend
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:frontend_container
+
+      - name: Build and push nginx_container
+        uses: docker/build-push-action@v2
+        with:
+          context: ./backend/init_db
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:to_do_list_devops-alembic-1
+
+      - name: Build and push user_manager_container
+        uses: docker/build-push-action@v2
+        with:
+          context: ./backend/user_manager/
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:user_manager_container
+
+      - name: Build and push task_manager_container
+        uses: docker/build-push-action@v2
+        with:
+          context: ./backend/task_manager/
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:task_manager_container
