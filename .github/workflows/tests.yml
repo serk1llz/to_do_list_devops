@@ -6,10 +6,23 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_HOST_TEST: ${{ secrets.DB_HOST_TEST }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_NAME_TEST: ${{ secrets.DB_NAME_TEST }}
+      DB_PASS: ${{ secrets.DB_PASS }}
+      DB_PASS_TEST: ${{ secrets.DB_PASS_TEST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_PORT_TEST: ${{ secrets.DB_PORT_TEST }}
+      DB_SCHEMA: ${{ secrets.DB_SCHEMA }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_USER_TEST: ${{ secrets.DB_USER_TEST }}
+      SECRET: ${{ secrets.SECRET }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.7
-        
+
       - name: Run tests
         run: |
           docker compose -f docker-compose-tests.yml up -d
