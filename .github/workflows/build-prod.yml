@@ -20,7 +20,7 @@ jobs:
       - name: Build and push frontend_container
         uses: docker/build-push-action@v2
         with:
-          context: ./frontend_container
+          context: ./frontend
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:frontend_container_latest
@@ -28,7 +28,7 @@ jobs:
       - name: Build and push nginx_container
         uses: docker/build-push-action@v2
         with:
-          context: ./nginx_container
+          context: ./backend/init_db
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:nginx_container_latest
@@ -36,7 +36,7 @@ jobs:
       - name: Build and push user_manager_container
         uses: docker/build-push-action@v2
         with:
-          context: ./user_manager_container
+          context: ./backend/user_manager/
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:user_manager_container_latest
@@ -44,7 +44,7 @@ jobs:
       - name: Build and push task_manager_container
         uses: docker/build-push-action@v2
         with:
-          context: ./task_manager_container
+          context: ./backend/task_manager/
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:task_manager_container_latest
