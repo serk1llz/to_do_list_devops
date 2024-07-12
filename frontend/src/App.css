@@ -1,5 +1,5 @@
 tr.completed {
-  background-color: #ff0000
+  background-color: #c4ffbd
 }
 
 a {
@@ -7,6 +7,6 @@ a {
   text-decoration: none;
 }
 a:hover {
-   color: rgb(159, 159, 255);
+   color: rgb(255, 0, 0);
    text-decoration: none;
 }
