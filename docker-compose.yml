@@ -2,9 +2,7 @@ version: "3.8"
 
 services:
   task_manager:
-    build:
-      context: ./backend/task_manager
-      dockerfile: ./Dockerfile
+    image: serk1llz/bars_project:task_manager_container
     container_name: task_manager_container
     environment:
       DB_HOST: ${DB_HOST}
@@ -27,9 +25,7 @@ services:
       - app-network
 
   user_manager:
-    build:
-      context: ./backend/user_manager
-      dockerfile: ./Dockerfile
+    image: serk1llz/bars_project:user_manager_container
     container_name: user_manager_container
     environment:
       DB_HOST: ${DB_HOST}
@@ -69,9 +65,7 @@ services:
       - app-network
 
   alembic:
-    build:
-      context: ./backend/init_db
-      dockerfile: ./Dockerfile
+    image: serk1llz/bars_project:to_do_list_devops-alembic-1
     environment:
       DB_HOST: ${DB_HOST}
       DB_NAME: ${DB_NAME}
@@ -84,23 +78,6 @@ services:
     restart: on-failure:5
     networks:
       - app-network
-
-#  pgadmin:
-#    container_name: pgadmin_container
-#    image: dpage/pgadmin4:7.2
-#    environment:
-#      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-#      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-#      PGADMIN_CONFIG_SERVER_MODE: "False"
-#    volumes:
-#      - pgadmin-data:/var/lib/pgadmin
-#    ports:
-#      - "5050:80"
-#    restart: unless-stopped
-#    networks:
-#      - app-network
-#    depends_on:
-#      - postgres
 
   nginx:
     image: nginx:latest
@@ -117,11 +94,7 @@ services:
       - app-network
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: ./Dockerfile
-      args:
-        REACT_APP_BACKEND_URL: ${REACT_APP_BACKEND_URL}
+    image: serk1llz/bars_project:frontend_container
     container_name: frontend_container
     restart: unless-stopped
     ports:
