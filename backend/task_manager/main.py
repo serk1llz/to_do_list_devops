@@ -5,7 +5,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 origins = [
-    "http://localhost:3000",
+    "*",
 ]
 
 
@@ -13,7 +13,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["GET", "POST", "DELETE", "PATCH"],
+    allow_methods=["GET", "POST", "DELETE", "PATCH", "OPTIONS"],
     allow_headers=[
         "Content-Type",
         "Access-Control-Allow-Origin",

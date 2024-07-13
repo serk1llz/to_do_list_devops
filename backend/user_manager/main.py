@@ -9,7 +9,7 @@ from user_manager import get_user_manager
 
 app = FastAPI()
 origins = [
-    "http://localhost:3000",
+    "*",
 ]
 
 app.add_middleware(
