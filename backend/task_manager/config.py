@@ -15,7 +15,6 @@ class Settings(BaseSettings):
     DB_PASS_TEST: str
     DB_USER_TEST: str
 
-    FRONTEND_URL: str
     SECRET: str
 
     @property

@@ -6,11 +6,10 @@ from fastapi_users import FastAPIUsers
 from schemas import UserCreate, UserRead
 from starlette.middleware.cors import CORSMiddleware
 from user_manager import get_user_manager
-from config import settings
 
 app = FastAPI()
 origins = [
-    f"{settings.FRONTEND_URL}",
+    "http://185.27.192.116:3000"
 ]
 
 app.add_middleware(

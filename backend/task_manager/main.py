@@ -2,11 +2,10 @@ import uvicorn
 from fastapi import FastAPI
 from src.api.router import router
 from starlette.middleware.cors import CORSMiddleware
-from config import settings
 
 app = FastAPI()
 origins = [
-    f"{settings.FRONTEND_URL}",
+    "http://185.27.192.116:3000",
 ]
 
 
