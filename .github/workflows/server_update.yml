@@ -32,3 +32,4 @@ jobs:
             echo "SECRET=${{ secrets.SECRET }}" >> .env
             docker compose pull
             docker compose up -d
+            docker rmi $(docker images -f "dangling=true" -q)
