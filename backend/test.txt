@@ -1,10 +1,1 @@
-test file asdsadsadsa
-test pull request
-Работа в мастер
-Работа в мастер 7
-исправили test.yml
-Добавили скрипт тест_2_версия
-
-sdfdsf
-dsfsdf
- 
+asdasdsa
