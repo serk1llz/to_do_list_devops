@@ -8,13 +8,9 @@ from starlette.middleware.cors import CORSMiddleware
 from user_manager import get_user_manager
 
 app = FastAPI()
-<<<<<<< HEAD
 origins = [
     "http://185.27.192.116:3000",
 ]
-=======
-origins = ["http://185.27.192.116:3000"]
->>>>>>> 0ae46210c44eb26c524570a38123833fa0625c5a
 
 app.add_middleware(
     CORSMiddleware,
