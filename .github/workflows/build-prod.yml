@@ -6,7 +6,7 @@ on:
 
 jobs:
   build_and_push_frontend:
-    if: contains(github.event.head_commit.message, 'Update')
+    if: contains(github.event.head_commit.message, 'frontend')
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
@@ -25,11 +25,9 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:frontend_container
-          build-args: |
-            REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}
 
-  build_and_push_nginx:
-    if: contains(github.event.head_commit.message, 'Update')
+  build_and_push_ndevops-alembic-1:
+    if: contains(github.event.head_commit.message, 'init_db') && contains(github.event.head_commit.message, 'backend')
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
@@ -50,7 +48,7 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:to_do_list_devops-alembic-1
 
   build_and_push_user_manager:
-    if: contains(github.event.head_commit.message, 'Update')
+    if: contains(github.event.head_commit.message, 'user_manager') && contains(github.event.head_commit.message, 'backend')
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
@@ -71,7 +69,7 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:user_manager_container
 
   build_and_push_task_manager:
-    if: contains(github.event.head_commit.message, 'Update')
+    if: contains(github.event.head_commit.message, 'task_manager') && contains(github.event.head_commit.message, 'backend')
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
