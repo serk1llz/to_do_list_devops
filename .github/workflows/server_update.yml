@@ -18,6 +18,8 @@ jobs:
       DB_USER: ${{ secrets.DB_USER }}
       DB_USER_TEST: ${{ secrets.DB_USER_TEST }}
       REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
+      PGADMIN_DEFAULT_EMAIL: ${{ secrets.PGADMIN_DEFAULT_EMAIL }}
+      PGADMIN_DEFAULT_PASSWORD: ${{secrets.PGADMIN_DEFAULT_PASSWORD}}
       SECRET: ${{ secrets.SECRET }}
     steps:
       - name: Connect and run script
