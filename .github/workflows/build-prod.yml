@@ -3,14 +3,13 @@ on:
   push:
     tags:
       - v*.*.*
+
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -21,51 +20,19 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Fetch all history for diff
-        run: git fetch --prune --unshallow
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
 
-      - name: Check for changes in frontend
-        id: frontend_changes
+      - name: Determine changes
+        id: changes
         run: |
-          if git diff --name-only HEAD~1 HEAD | grep -q '^frontend/'; then
-            echo "Frontend changed"
-            echo "changed=true" >> $GITHUB_ENV
-          else
-            echo "changed=false" >> $GITHUB_ENV
-          fi
-
-      - name: Check for changes in backend/init_db
-        id: nginx_changes
-        run: |
-          if git diff --name-only HEAD~1 HEAD | grep -q '^backend/init_db/'; then
-            echo "Nginx changed"
-            echo "changed=true" >> $GITHUB_ENV
-          else
-            echo "changed=false" >> $GITHUB_ENV
-          fi
-
-      - name: Check for changes in backend/user_manager
-        id: user_manager_changes
-        run: |
-          if git diff --name-only HEAD~1 HEAD | grep -q '^backend/user_manager/'; then
-            echo "User manager changed"
-            echo "changed=true" >> $GITHUB_ENV
-          else
-            echo "changed=false" >> $GITHUB_ENV
-          fi
-
-      - name: Check for changes in backend/task_manager
-        id: task_manager_changes
-        run: |
-          if git diff --name-only HEAD~1 HEAD | grep -q '^backend/task_manager/'; then
-            echo "Task manager changed"
-            echo "changed=true" >> $GITHUB_ENV
-          else
-            echo "changed=false" >> $GITHUB_ENV
-          fi
+          echo "## Determining changes..."
+          git fetch origin
+          git diff --name-only HEAD^ HEAD > changed_files.txt
+          cat changed_files.txt
 
       - name: Build and push frontend_container
-        if: env.changed == 'true' && steps.frontend_changes.outputs.changed == 'true'
+        if: contains(steps.changes.outputs.changed_files, 'frontend/')
         uses: docker/build-push-action@v2
         with:
           context: ./frontend
@@ -76,7 +43,7 @@ jobs:
             REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}
 
       - name: Build and push nginx_container
-        if: env.changed == 'true' && steps.nginx_changes.outputs.changed == 'true'
+        if: contains(steps.changes.outputs.changed_files, 'backend/init_db/')
         uses: docker/build-push-action@v2
         with:
           context: ./backend/init_db
@@ -85,7 +52,7 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:to_do_list_devops-alembic-1
 
       - name: Build and push user_manager_container
-        if: env.changed == 'true' && steps.user_manager_changes.outputs.changed == 'true'
+        if: contains(steps.changes.outputs.changed_files, 'backend/user_manager/')
         uses: docker/build-push-action@v2
         with:
           context: ./backend/user_manager/
@@ -94,7 +61,7 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:user_manager_container
 
       - name: Build and push task_manager_container
-        if: env.changed == 'true' && steps.task_manager_changes.outputs.changed == 'true'
+        if: contains(steps.changes.outputs.changed_files, 'backend/task_manager/')
         uses: docker/build-push-action@v2
         with:
           context: ./backend/task_manager/
