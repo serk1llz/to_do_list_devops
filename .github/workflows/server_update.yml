@@ -5,6 +5,20 @@ jobs:
   server_update:
     name: Update server by SSH
     runs-on: ubuntu-latest
+    env:
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_HOST_TEST: ${{ secrets.DB_HOST_TEST }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_NAME_TEST: ${{ secrets.DB_NAME_TEST }}
+      DB_PASS: ${{ secrets.DB_PASS }}
+      DB_PASS_TEST: ${{ secrets.DB_PASS_TEST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_PORT_TEST: ${{ secrets.DB_PORT_TEST }}
+      DB_SCHEMA: ${{ secrets.DB_SCHEMA }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_USER_TEST: ${{ secrets.DB_USER_TEST }}
+      REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
+      SECRET: ${{ secrets.SECRET }}
     steps:
       - name: Connect and run script
         uses: appleboy/ssh-action@master
@@ -14,4 +28,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script_stop: true
-          script: bash deploy.sh
+          script: |
+              docker compose pull
+              docker compose up -d
