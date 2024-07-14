@@ -3,7 +3,6 @@ on:
   push:
     tags:
       - v*.*.*
-
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
@@ -11,28 +10,13 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Determine changes
-        id: changes
-        run: |
-          echo "## Determining changes..."
-          git fetch origin
-          git diff --name-only HEAD^ HEAD > changed_files.txt
-          cat changed_files.txt
-
       - name: Build and push frontend_container
-        if: contains(steps.changes.outputs.changed_files, 'frontend/')
         uses: docker/build-push-action@v2
         with:
           context: ./frontend
@@ -43,7 +27,6 @@ jobs:
             REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}
 
       - name: Build and push nginx_container
-        if: contains(steps.changes.outputs.changed_files, 'backend/init_db/')
         uses: docker/build-push-action@v2
         with:
           context: ./backend/init_db
@@ -52,7 +35,6 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:to_do_list_devops-alembic-1
 
       - name: Build and push user_manager_container
-        if: contains(steps.changes.outputs.changed_files, 'backend/user_manager/')
         uses: docker/build-push-action@v2
         with:
           context: ./backend/user_manager/
@@ -61,7 +43,6 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:user_manager_container
 
       - name: Build and push task_manager_container
-        if: contains(steps.changes.outputs.changed_files, 'backend/task_manager/')
         uses: docker/build-push-action@v2
         with:
           context: ./backend/task_manager/
