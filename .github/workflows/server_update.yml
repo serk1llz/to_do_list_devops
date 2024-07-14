@@ -5,22 +5,6 @@ jobs:
   server_update:
     name: Update server by SSH
     runs-on: ubuntu-latest
-    env:
-      DB_HOST: ${{ secrets.DB_HOST }}
-      DB_HOST_TEST: ${{ secrets.DB_HOST_TEST }}
-      DB_NAME: ${{ secrets.DB_NAME }}
-      DB_NAME_TEST: ${{ secrets.DB_NAME_TEST }}
-      DB_PASS: ${{ secrets.DB_PASS }}
-      DB_PASS_TEST: ${{ secrets.DB_PASS_TEST }}
-      DB_PORT: ${{ secrets.DB_PORT }}
-      DB_PORT_TEST: ${{ secrets.DB_PORT_TEST }}
-      DB_SCHEMA: ${{ secrets.DB_SCHEMA }}
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_USER_TEST: ${{ secrets.DB_USER_TEST }}
-      REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
-      PGADMIN_DEFAULT_EMAIL: ${{ secrets.PGADMIN_DEFAULT_EMAIL }}
-      PGADMIN_DEFAULT_PASSWORD: ${{secrets.PGADMIN_DEFAULT_PASSWORD}}
-      SECRET: ${{ secrets.SECRET }}
     steps:
       - name: Connect and run script
         uses: appleboy/ssh-action@master
@@ -31,5 +15,20 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script_stop: true
           script: |
-              docker compose pull
-              docker compose up -d
+            echo "DB_HOST=${{ secrets.DB_HOST }}" > .env
+            echo "DB_HOST_TEST=${{ secrets.DB_HOST_TEST }}" >> .env
+            echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+            echo "DB_NAME_TEST=${{ secrets.DB_NAME_TEST }}" >> .env
+            echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+            echo "DB_PASS_TEST=${{ secrets.DB_PASS_TEST }}" >> .env
+            echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+            echo "DB_PORT_TEST=${{ secrets.DB_PORT_TEST }}" >> .env
+            echo "DB_SCHEMA=${{ secrets.DB_SCHEMA }}" >> .env
+            echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+            echo "DB_USER_TEST=${{ secrets.DB_USER_TEST }}" >> .env
+            echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}" >> .env
+            echo "PGADMIN_DEFAULT_EMAIL=${{ secrets.PGADMIN_DEFAULT_EMAIL }}" >> .env
+            echo "PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD }}" >> .env
+            echo "SECRET=${{ secrets.SECRET }}" >> .env
+            docker compose pull
+            docker compose up -d

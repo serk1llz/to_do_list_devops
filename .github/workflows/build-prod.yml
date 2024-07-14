@@ -6,22 +6,6 @@ on:
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
-    env:
-      DB_HOST: ${{ secrets.DB_HOST }}
-      DB_HOST_TEST: ${{ secrets.DB_HOST_TEST }}
-      DB_NAME: ${{ secrets.DB_NAME }}
-      DB_NAME_TEST: ${{ secrets.DB_NAME_TEST }}
-      DB_PASS: ${{ secrets.DB_PASS }}
-      DB_PASS_TEST: ${{ secrets.DB_PASS_TEST }}
-      DB_PORT: ${{ secrets.DB_PORT }}
-      DB_PORT_TEST: ${{ secrets.DB_PORT_TEST }}
-      DB_SCHEMA: ${{ secrets.DB_SCHEMA }}
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_USER_TEST: ${{ secrets.DB_USER_TEST }}
-      PGADMIN_DEFAULT_EMAIL: ${{ secrets.PGADMIN_DEFAULT_EMAIL }}
-      PGADMIN_DEFAULT_PASSWORD: ${{ secrets.PGADMIN_DEFAULT_PASSWORD }}
-      REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
-      SECRET: ${{ secrets.SECRET }}
     steps:
       - name: Check out the repository
         uses: actions/checkout@v3
