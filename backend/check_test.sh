@@ -1,4 +1,4 @@
-в скрипте backend/check_test.sh
+#!/bin/bash
 check_logs() {
   local container_name=$1
   output=$(docker logs --tail 10 "$container_name" | grep failed)
