@@ -23,7 +23,9 @@ jobs:
           black-options: "--check --diff"
           isort-options: "--profile black"
           django: false
-
+  telegram:
+    runs-on: ubuntu-latest
+    steps:
       - name: send telegram message on push
         uses: appleboy/telegram-action@master
         with:
@@ -32,6 +34,6 @@ jobs:
           message: |
             Выполнилась линтовка!
             ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }}
+            Commit message: ${{ github.event.commits.message }}
             Repository: ${{ github.repository }}
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
