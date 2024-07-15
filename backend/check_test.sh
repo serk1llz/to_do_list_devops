@@ -31,4 +31,3 @@ if [[ $task_manager_logs -ne 0 || $user_manager_logs -ne 0 ]]; then
 else
   exit 0
 fi
-
