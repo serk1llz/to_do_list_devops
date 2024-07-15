@@ -27,6 +27,14 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:frontend_container
           build-args: |
             REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL }}
+            
+      - name: send telegram message on success
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+              в dockerhub был запушен новый образ frontend_container
 
   build_and_push_ndevops-alembic-1:
     if: contains(github.event.head_commit.message, 'init_db') || contains(github.event.head_commit.message, 'backend')
@@ -49,6 +57,14 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:to_do_list_devops-alembic-1
             
+      - name: send telegram message on success
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+              в dockerhub был запушен новый образ to_do_list_devops-alembic-1
+              
   build_and_push_user_manager:
     if: contains(github.event.head_commit.message, 'user_manager') || contains(github.event.head_commit.message, 'backend')
     runs-on: ubuntu-latest
@@ -70,6 +86,14 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:user_manager_container
             
+      - name: send telegram message on success
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+              в dockerhub был запушен новый образ user_manager_container
+            
   build_and_push_task_manager:
     if: contains(github.event.head_commit.message, 'task_manager') || contains(github.event.head_commit.message, 'backend')
     runs-on: ubuntu-latest
@@ -90,3 +114,11 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO_NAME }}:task_manager_container
+            
+      - name: send telegram message on success
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+              в dockerhub был запушен новый образ task_manager_container
