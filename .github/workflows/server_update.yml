@@ -33,3 +33,11 @@ jobs:
             docker compose pull
             docker compose up -d
             docker rmi $(docker images -f "dangling=true" -q)
+            
+      - name: send telegram message on success
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+              Сервер был обновлен!
