@@ -1,5 +1,3 @@
-#!/bin/bash
-
 check_logs() {
   local container_name=$1
   output=$(docker logs --tail 10 "$container_name" | grep failed)
@@ -9,6 +7,7 @@ check_logs() {
   else
     echo "Failures found in logs of $container_name:"
     echo "$output"
+    echo "::set-output name=${container_name}_logs::$output"
     return 1
   fi
 }
