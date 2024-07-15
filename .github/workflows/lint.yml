@@ -27,7 +27,8 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
-      - name: send telegram message on push
+      - name: send telegram message on success
+        if: ${{ needs.lint.result == 'success' }}
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
@@ -38,3 +39,12 @@ jobs:
             Сообщение коммита: ${{ github.event.pull_request.title }}
             Репозиторий: ${{ github.repository }}
             Смотрите изменения: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+
+      - name: send telegram message on failure
+        if: ${{ needs.lint.result != 'success' }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Линтовка не прошла!
