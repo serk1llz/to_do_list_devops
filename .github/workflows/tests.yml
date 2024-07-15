@@ -30,13 +30,8 @@ jobs:
           bash backend/check_test.sh
           docker logs task_manager_container_test > task_manager.txt
           docker logs user_manager_container_test > user_manager.txt
-          
-      - uses: actions/upload-artifact@master
-        with:
-          name: hello-world-artifact
-          path: |
-            task_manager.txt
-            user_manager.txt
+          curl -F chat_id=${TELEGRAM_CHAT_ID} -F document=@task_manager.txt -F caption="task_manager.txt" https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument
+          curl -F chat_id=${TELEGRAM_CHAT_ID} -F document=@user_manager.txt -F caption="user_manager.txt" https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument
 
   telegram:
     needs: test
@@ -50,16 +45,6 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             Тесты прошли!!!
-
-      - uses: actions/download-artifact@master
-        with:
-          name: hello-world-artifact
-          path: |
-            task_manager.txt
-            user_manager.txt
-      - run: |
-            curl -F document=@task_manager.txt "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&caption=task_manager.txt"
-            curl -F document=@user_manager.txt "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendDocument?chat_id=${{ secrets.TELEGRAM_CHAT_ID }}&caption=user_manager.txt"
             
       - name: send telegram message on failure
         if: ${{ needs.test.result != 'success' }}
