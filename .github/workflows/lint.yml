@@ -23,3 +23,15 @@ jobs:
           black-options: "--check --diff"
           isort-options: "--profile black"
           django: false
+
+      - name: send telegram message on push
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Выполнилась линтовка!
+            ${{ github.actor }} created commit:
+            Commit message: ${{ github.event.commits[0].message }}
+            Repository: ${{ github.repository }}
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
