@@ -28,10 +28,6 @@ jobs:
         run: |
           docker compose -f docker-compose-tests.yml up -d
           bash backend/check_test.sh
-          docker logs task_manager_container_test > task_manager.txt
-          docker logs user_manager_container_test > user_manager.txt
-          curl -F chat_id=${TELEGRAM_CHAT_ID} -F document=@task_manager.txt https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument
-          curl -F chat_id=${TELEGRAM_CHAT_ID} -F document=@user_manager.txt https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendDocument
          
   telegram:
     needs: test
