@@ -30,7 +30,7 @@ jobs:
           bash backend/check_test.sh
           docker logs task_manager_container_test > task_manager.txt
           docker logs user_manager_container_test > user_manager.txt
-          bash send_logs.sh
+          bash backend/send_logs.sh
          
   telegram:
     needs: test
