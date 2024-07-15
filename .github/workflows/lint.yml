@@ -24,6 +24,7 @@ jobs:
           isort-options: "--profile black"
           django: false
   telegram:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: send telegram message on push
