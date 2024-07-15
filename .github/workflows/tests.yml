@@ -24,6 +24,70 @@ jobs:
         uses: actions/checkout@v4.1.7
 
       - name: Run tests
+        id: test_step
         run: |
           docker compose -f docker-compose-tests.yml up -d
-          bash backend/check_test.sh 
+          bash backend/check_test.sh
+
+  telegram:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: send telegram message on success
+        if: ${{ needs.test.result == 'success' }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Тесты прошли!!!
+
+            Логи task_manager_container_test:
+            ${{ steps.test_step.outputs.task_manager_container_test_logs }}
+
+            Логи user_manager_container_test:
+            ${{ steps.test_step.outputs.user_manager_container_test_logs }}
+
+      - name: Upload task_manager_container_test logs
+        if: ${{ needs.test.result == 'success' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: task_manager_container_test_logs
+          path: task_manager_container_test_logs.txt
+
+      - name: Upload user_manager_container_test logs
+        if: ${{ needs.test.result == 'success' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: user_manager_container_test_logs
+          path: user_manager_container_test_logs.txt
+
+
+      - name: send telegram message on failure
+        if: ${{ needs.test.result != 'success' }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Тесты не прошли!!!
+
+            Логи task_manager_container_test:
+            ${{ steps.test_step.outputs.task_manager_container_test_logs }}
+
+            Логи user_manager_container_test:
+            ${{ steps.test_step.outputs.user_manager_container_test_logs }}
+
+      - name: Upload task_manager_container_test logs
+        if: ${{ needs.test.result != 'success' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: task_manager_container_test_logs
+          path: task_manager_container_test_logs.txt
+
+      - name: Upload user_manager_container_test logs
+        if: ${{ needs.test.result != 'success' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: user_manager_container_test_logs
+          path: user_manager_container_test_logs.txt
