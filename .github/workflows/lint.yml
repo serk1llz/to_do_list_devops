@@ -35,6 +35,6 @@ jobs:
           message: |
             Линтовка выполнилась успешно!!!
             ${{ github.actor }} создал коммит:
-            Сообщение коммита: ${{ github.event.head_commit.message }}
+            Сообщение коммита: ${{ github.event.pull_request.title }}
             Репозиторий: ${{ github.repository }}
             Смотрите изменения: https://github.com/${{ github.repository }}/commit/${{github.sha}}
