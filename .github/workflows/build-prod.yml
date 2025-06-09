@@ -151,6 +151,7 @@ jobs:
             echo "PGADMIN_DEFAULT_PASSWORD=${{ secrets.PGADMIN_DEFAULT_PASSWORD }}" >> .env
             echo "SECRET=${{ secrets.SECRET }}" >> .env
             docker stop $(docker ps -qa) && docker rm $(docker ps -qa) && docker rmi -f $(docker images -qa) && docker volume rm $(docker volume ls -q) && docker network rm $(docker network ls -q)
+            cd to_do_list_devops/
             docker compose pull
             docker compose up -d
             
