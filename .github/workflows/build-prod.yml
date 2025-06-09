@@ -124,6 +124,11 @@ jobs:
               в dockerhub был запушен новый образ task_manager_container
   server_update:
     name: Update server by SSH
+    needs:
+      - build_and_push_frontend
+      - build_and_push_ndevops-alembic-1
+      - build_and_push_user_manager
+      - build_and_push_task_manager
     runs-on: ubuntu-latest
     steps:
       - name: Connect and run script
@@ -161,4 +166,4 @@ jobs:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-              Сервер был обновлен!
+              Приложение было обновлено на версию ${{ github.ref_name }}!
